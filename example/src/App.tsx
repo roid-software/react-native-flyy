@@ -1,32 +1,101 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text } from 'react-native';
 import Flyy from 'react-native-flyy';
 
 
-export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+export default class App extends React.Component {
 
-  React.useEffect(() => {
-    Flyy.multiply(3, 7).then(setResult);
-  }, []);
+  componentDidMount() {
+    Flyy.initSDK("e6ba6f017fd8712b6fad", Flyy.PRODUCTION);
+  }
 
-  return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
-  );
+  render() {
+    return (
+      <View style={styles.main}>
+        <View style={styles.container}>
+          <TextInput style={styles.input}
+            placeholder="Enter your name"
+            onChangeText={(text) => this.setState({ name: text })}
+            keyboardType='default' />
+
+          <TextInput style={styles.input}
+            placeholder="Enter your contact number"
+            onChangeText={(text) => this.setState({ number: text })}
+            keyboardType='number-pad' />
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              this.openOffersScreen()
+            }>
+            <Text style={styles.buttonText}>LOGIN</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
+  }
+
+  openOffersScreen() {
+    if (this.state != null && this.state.name != null && this.state.name != "" &&
+      this.state.number != null && this.state.number != "") {
+      Flyy.setUser(this.state.number);
+      Flyy.setUserName(this.state.name);
+      Flyy.openOffersScreen();
+      // Flyy.openReferralHistory();
+      const data = {
+        "platform": "Android",
+        "react": "native_test",
+        "this": "works"
+      }
+      Flyy.sendEvent("platform_info", JSON.stringify(data));
+      // Flyy.openRewardsScreen();
+      // Flyy.openWalletScreen();
+      // Flyy.openGiftCardScreen();
+    } else {
+      console.log("Name and Number are mandatory fields");
+    }
+  }
+
 }
 
 const styles = StyleSheet.create({
+  main: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
   container: {
-    flex: 1,
+    height: '100%',
+    width: '80%',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  input: {
+    height: 40,
+    width: '100%',
+    borderRadius: 10,
+    borderColor: 'deepskyblue',
+    borderWidth: 1,
+    padding: 10,
+    margin: 25,
   },
+  buttonText: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: 'white'
+  },
+  button: {
+    width: 150,
+    height: 50,
+    backgroundColor: 'deepskyblue',
+    textAlign: 'center',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 30
+  }
 });
