@@ -1,6 +1,7 @@
 #import "Flyy.h"
+#import "FlyyFramework/FlyyFramework.h"
 
-@implementation Flyy
+@implementation FlyyModule : NSObject 
 
 RCT_EXPORT_MODULE()
 
@@ -14,6 +15,11 @@ RCT_REMAP_METHOD(multiply,
   NSNumber *result = @([a floatValue] * [b floatValue]);
 
   resolve(result);
+}
+
+RCT_EXPORT_METHOD(initSDK: (NSString *)partnerToken :(int)environment)
+{
+    
 }
 
 @end

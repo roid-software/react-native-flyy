@@ -1,5 +1,5 @@
 #import <React/RCTBridgeModule.h>
 
-@interface Flyy : NSObject <RCTBridgeModule>
+@interface FlyyModule : NSObject <RCTBridgeModule>
 
 @end
