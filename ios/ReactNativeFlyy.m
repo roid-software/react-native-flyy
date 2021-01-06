@@ -6,21 +6,27 @@
 // To export a module named ReactNativeFlyy
 RCT_EXPORT_MODULE(Flyy)
 
-// Example method
-// See // https://reactnative.dev/docs/native-modules-ios
-RCT_REMAP_METHOD(multiply,
-                 multiplyWithA:(nonnull NSNumber*)a withB:(nonnull NSNumber*)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
-{
-  NSNumber *result = @([a floatValue] * [b floatValue]);
+static NSString * STAGE = @"STAGE";
+static NSString * PRODUCTION = @"PRODUCTION";
 
-  resolve(result);
-}
+
 
 RCT_EXPORT_METHOD(initSDK: (NSString *)partnerToken :(int)environment)
 {
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    //Initialize sdk
+    [flyyInstance initSDKWithPartnerToken:partnerToken environment: environment];
+}
 
+- (NSDictionary *)constantsToExport
+{
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    return @{
+        STAGE: [NSNumber numberWithInt:[flyyInstance staging]],
+        PRODUCTION: [NSNumber numberWithInt:[flyyInstance production]],
+    };
 }
 
 @end

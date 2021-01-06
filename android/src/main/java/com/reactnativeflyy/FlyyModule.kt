@@ -17,7 +17,6 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
 
   var STAGE = "STAGE"
   var PRODUCTION = "PRODUCTION"
-  var CURR_ENV = "CURR_ENV"
 
   var map = Arguments.createMap()
 
