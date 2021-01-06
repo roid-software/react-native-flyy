@@ -1,9 +1,10 @@
-#import "Flyy.h"
+#import "ReactNativeFlyy.h"
 #import "FlyyFramework/FlyyFramework.h"
 
-@implementation FlyyModule : NSObject 
+@implementation ReactNativeFlyy
 
-RCT_EXPORT_MODULE()
+// To export a module named ReactNativeFlyy
+RCT_EXPORT_MODULE(Flyy)
 
 // Example method
 // See // https://reactnative.dev/docs/native-modules-ios
@@ -19,7 +20,7 @@ RCT_REMAP_METHOD(multiply,
 
 RCT_EXPORT_METHOD(initSDK: (NSString *)partnerToken :(int)environment)
 {
-    
+
 }
 
 @end

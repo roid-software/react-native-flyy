@@ -7,6 +7,7 @@ import Flyy from 'react-native-flyy';
 export default class App extends React.Component {
 
   componentDidMount() {
+  console.log(Flyy)
     Flyy.initSDK("e6ba6f017fd8712b6fad", Flyy.PRODUCTION);
   }
 
