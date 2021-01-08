@@ -7,7 +7,8 @@ import Flyy from 'react-native-flyy';
 export default class App extends React.Component {
 
   componentDidMount() {
-    Flyy.initSDK("e6ba6f017fd8712b6fad", Flyy.PRODUCTION);
+    //initalize flyy sdk
+    Flyy.initSDK("partner-token", Flyy.PRODUCTION);
   }
 
   render() {
@@ -39,18 +40,79 @@ export default class App extends React.Component {
   openOffersScreen() {
     if (this.state != null && this.state.name != null && this.state.name != "" &&
       this.state.number != null && this.state.number != "") {
+      //set user
       Flyy.setUser(this.state.number);
+
+      //set new user
+      Flyy.setNewUser(this.state.number);
+
+      //set user with callback
+      Flyy.setUser(
+         this.state.number,
+        (success) => {
+                    console.log(`Callback value ${success}`);
+        }
+      );
+
+      //set new user with callback
+      Flyy.setNewUser(
+         this.state.number,
+        (success) => {
+                    console.log(`Callback value ${success}`);
+        }
+      );
+
+      //set user name
       Flyy.setUserName(this.state.name);
-      Flyy.openOffersScreen();
-      //Flyy.openReferralHistory();
+
+      //set user name with callback
+      Flyy.setUserName(
+         this.state.name,
+         (success) => {
+                   console.log(`Callback value ${success}`);
+         }
+      );
+
+      //send json event
       const data = {
         "platform": "Android",
         "react": "native_test",
         "this": "works"
       }
       Flyy.sendEvent("platform_info", JSON.stringify(data));
+
+      //send event
+      Flyy.sendEvent("platform_info", "ios/android");
+
+      //send json event with callback
+      Flyy.sendEvent(
+            "platform_info",  JSON.stringify(data),
+            (success) => {
+                 console.log(`Callback value ${success}`);
+            }
+      );
+
+      //send event with callback
+      Flyy.sendEvent(
+            "platform_info", "ios/android",
+            (success) => {
+                 console.log(`Callback value ${success}`);
+            }
+      );
+
+      //open offers screen
+      Flyy.openOffersScreen();
+
+      //open referrals history screen
+      //Flyy.openReferralHistory();
+
+      //open rewards screen
       //Flyy.openRewardsScreen();
+
+      //open wallet screen
       //Flyy.openWalletScreen();
+
+      //open gift cards screen
       //Flyy.openGiftCardScreen();
     } else {
       console.log("Name and Number are mandatory fields");
