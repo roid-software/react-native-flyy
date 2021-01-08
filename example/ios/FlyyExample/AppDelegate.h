@@ -10,6 +10,8 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate>
 
+@property (strong, nonatomic) UINavigationController *navController;
+
 @property (nonatomic, strong) UIWindow *window;
 
 @end

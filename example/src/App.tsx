@@ -42,16 +42,16 @@ export default class App extends React.Component {
       Flyy.setUser(this.state.number);
       Flyy.setUserName(this.state.name);
       Flyy.openOffersScreen();
-      // Flyy.openReferralHistory();
+      //Flyy.openReferralHistory();
       const data = {
         "platform": "Android",
         "react": "native_test",
         "this": "works"
       }
       Flyy.sendEvent("platform_info", JSON.stringify(data));
-      // Flyy.openRewardsScreen();
-      // Flyy.openWalletScreen();
-      // Flyy.openGiftCardScreen();
+      //Flyy.openRewardsScreen();
+      //Flyy.openWalletScreen();
+      //Flyy.openGiftCardScreen();
     } else {
       console.log("Name and Number are mandatory fields");
     }

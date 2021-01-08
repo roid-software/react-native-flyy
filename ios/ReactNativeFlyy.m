@@ -1,14 +1,19 @@
 #import "ReactNativeFlyy.h"
 #import "FlyyFramework/FlyyFramework.h"
-#import "ReactNativeFlyy-Swift.h"
+#import "WebViewController.h"
 
 @implementation ReactNativeFlyy
 
-// To export a module named ReactNativeFlyy
+// To export a module named Flyy
 RCT_EXPORT_MODULE(Flyy)
 
 static NSString * STAGE = @"STAGE";
 static NSString * PRODUCTION = @"PRODUCTION";
+
+-(void)set_navigation_controller:(UINavigationController*)navigation  withCurrentViewController:(UIViewController*) controller
+{
+   [navigation pushViewController:controller animated:YES];
+}
 
 //Init flyy sdk
 RCT_EXPORT_METHOD(initSDK: (NSString *)partnerToken :(int)environment)
@@ -144,53 +149,45 @@ RCT_EXPORT_METHOD(sendEventWithCallBack: (NSString *)key withString:(NSString *)
 //open offers screen
 RCT_EXPORT_METHOD(openOffersScreen)
 {
-    //Instance of flyy class
-    
-        FlyyHelper *flyyHelper = [[FlyyHelper alloc] init];
-//    [flyyHelper openPa]
-    
-    //Initialize sdk
-    //    [flyyInstance openOffersPageWithNavigationController:];
+    [self naviagteToPage:@"Loading Offers..." :@"https://web-sdk.theflyy.com/"];
 }
 
 //open rewards screen
 RCT_EXPORT_METHOD(openRewardsScreen)
 {
-    //Instance of flyy class
-    //    FlyyHelper *flyyHelper = [[FlyyHelper alloc] init];
-    
-    //Initialize sdk
-    //    [flyyInstance openOffersPageWithNavigationController:];
+    [self naviagteToPage:@"Loading Rewards..." :@"https://web-sdk.theflyy.com/rewards"];
 }
 
 //open wallet screen
 RCT_EXPORT_METHOD(openWalletScreen)
 {
-    //Instance of flyy class
-    //    FlyyHelper *flyyHelper = [[FlyyHelper alloc] init];
-    
-    //Initialize sdk
-    //    [flyyInstance openOffersPageWithNavigationController:];
+    [self naviagteToPage:@"Loading Wallet..." :@"https://web-sdk.theflyy.com/wallet"];
 }
 
 //open gift cards screen
 RCT_EXPORT_METHOD(openGiftCardScreen)
 {
-    //Instance of flyy class
-    //    FlyyHelper *flyyHelper = [[FlyyHelper alloc] init];
-    
-    //Initialize sdk
-    //    [flyyInstance openOffersPageWithNavigationController:];
+    [self naviagteToPage:@"Loading Gift Cards..." :@"https://web-sdk.theflyy.com/gift-cards"];
 }
 
 //open referral history screen
 RCT_EXPORT_METHOD(openReferralHistory)
 {
-    //Instance of flyy class
-    //    FlyyHelper *flyyHelper = [[FlyyHelper alloc] init];
-    
-    //Initialize sdk
-    //    [flyyInstance openOffersPageWithNavigationController:];
+    [self naviagteToPage:@"Loading Referrals..." :@"https://web-sdk.theflyy.com/referrals"];
+}
+
+- (void) naviagteToPage :(NSString *)pageTitle :(NSString *)pageurl{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        dispatch_async(dispatch_get_main_queue(), ^(){
+
+            UINavigationController *navController = (UINavigationController *)[[[UIApplication sharedApplication] keyWindow] rootViewController];
+            WebViewController *webViewController = [[WebViewController alloc] init];
+            webViewController.pageLoadingTitle = pageTitle;
+            webViewController.pageUrl = pageurl;
+            [navController pushViewController:webViewController animated:YES];
+        });
+    });
 }
 
 //overriden method to expose all the constants
