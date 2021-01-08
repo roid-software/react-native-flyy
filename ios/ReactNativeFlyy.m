@@ -15,6 +15,15 @@ static NSString * PRODUCTION = @"PRODUCTION";
    [navigation pushViewController:controller animated:YES];
 }
 
+//set package name
+RCT_EXPORT_METHOD(setPackageName: (NSString *)packageName)
+{
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    
+    [flyyInstance setPackageWithPackageName:packageName];
+}
+
 //Init flyy sdk
 RCT_EXPORT_METHOD(initSDK: (NSString *)partnerToken :(int)environment)
 {

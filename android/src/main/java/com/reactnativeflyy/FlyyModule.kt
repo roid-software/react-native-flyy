@@ -185,7 +185,6 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
     val constants: MutableMap<String, Any> = HashMap()
     constants[STAGE] = Flyy.STAGE
     constants[PRODUCTION] = Flyy.PRODUCTION
-    constants[CURR_ENV] = Flyy.CURR_ENV
     return constants
   }
 }
