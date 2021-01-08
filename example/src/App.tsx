@@ -48,7 +48,7 @@ export default class App extends React.Component {
         "react": "native_test",
         "this": "works"
       }
-      //Flyy.sendEvent("platform_info", JSON.stringify(data));
+      Flyy.sendEvent("platform_info", JSON.stringify(data));
       // Flyy.openRewardsScreen();
       // Flyy.openWalletScreen();
       // Flyy.openGiftCardScreen();

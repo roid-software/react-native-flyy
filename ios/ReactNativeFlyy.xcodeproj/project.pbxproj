@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD3BFA7A25A70D8100036AF7 /* FlyyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3BFA7925A70D8100036AF7 /* FlyyHelper.swift */; };
+		BD3BFA7F25A70DFD00036AF7 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3BFA7E25A70DFC00036AF7 /* WebViewController.swift */; };
 		BD49183225A58C11006C789C /* ReactNativeFlyy.m in Sources */ = {isa = PBXBuildFile; fileRef = BD49183025A58C11006C789C /* ReactNativeFlyy.m */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +26,9 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libFlyy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFlyy.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD3BFA7925A70D8100036AF7 /* FlyyHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyyHelper.swift; sourceTree = "<group>"; };
+		BD3BFA7D25A70DE800036AF7 /* react-native-flyy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "react-native-flyy-Bridging-Header.h"; path = "../react-native-flyy-Bridging-Header.h"; sourceTree = "<group>"; };
+		BD3BFA7E25A70DFC00036AF7 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		BD49183025A58C11006C789C /* ReactNativeFlyy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReactNativeFlyy.m; sourceTree = "<group>"; };
 		BD49183125A58C11006C789C /* ReactNativeFlyy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactNativeFlyy.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -50,6 +55,9 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				BD3BFA7D25A70DE800036AF7 /* react-native-flyy-Bridging-Header.h */,
+				BD3BFA7E25A70DFC00036AF7 /* WebViewController.swift */,
+				BD3BFA7925A70D8100036AF7 /* FlyyHelper.swift */,
 				BD49183125A58C11006C789C /* ReactNativeFlyy.h */,
 				BD49183025A58C11006C789C /* ReactNativeFlyy.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -114,6 +122,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD49183225A58C11006C789C /* ReactNativeFlyy.m in Sources */,
+				BD3BFA7F25A70DFD00036AF7 /* WebViewController.swift in Sources */,
+				BD3BFA7A25A70D8100036AF7 /* FlyyHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

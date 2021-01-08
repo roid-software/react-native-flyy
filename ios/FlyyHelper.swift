@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+@objc
 public class FlyyHelper: NSObject {
     
     public static var PAGE_TO_OPEN = URL(string: "")
