@@ -1,14 +1,20 @@
 #import "ReactNativeFlyy.h"
 #import "FlyyFramework/FlyyFramework.h"
+#import "WebVC.h"
 
+@implementation ReactNativeFlyy : NSObject
 
-@implementation ReactNativeFlyy
 
 // To export a module named ReactNativeFlyy
 RCT_EXPORT_MODULE(Flyy)
 
 static NSString * STAGE = @"STAGE";
 static NSString * PRODUCTION = @"PRODUCTION";
+
+-(void)login_method_called:(UINavigationController*)navigation  withCurrentViewController:(UIViewController*) controller
+{
+   [navigation pushViewController:controller animated:YES];
+}
 
 RCT_EXPORT_METHOD(initSDK: (NSString *)partnerToken :(int)environment)
 {
@@ -36,11 +42,17 @@ RCT_EXPORT_METHOD(setUserName: (NSString *)userName)
 
 RCT_EXPORT_METHOD(openOffersScreen)
 {
-    //Instance of flyy class
-//    FlyyHelper *flyyHelper = [[FlyyHelper alloc] init];
+   // call on Main thread
     
-    //Initialize sdk
-//    [flyyInstance openOffersPageWithNavigationController:];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        dispatch_async(dispatch_get_main_queue(), ^(){
+            
+            UINavigationController *navController = (UINavigationController *)[[[UIApplication sharedApplication] keyWindow] rootViewController];
+            WebVC *home = [[WebVC alloc] init];
+            [navController pushViewController:home animated:YES];
+        });
+    });    
 }
 
 - (NSDictionary *)constantsToExport

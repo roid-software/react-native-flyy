@@ -86,7 +86,7 @@ internal class WebViewController: UIViewController, WKUIDelegate, WKNavigationDe
                   let param = body["action"] as? String else {
                 return
             }
-            
+                        
             if(param == "go-back") {
                 if(webView.canGoBack) {
                     //Go back in webview history
