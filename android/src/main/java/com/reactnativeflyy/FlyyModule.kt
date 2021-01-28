@@ -140,6 +140,21 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
+  fun openFlyyQuizPage() {
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_QUIZ_PAGE)
+  }
+
+  @ReactMethod
+  fun openFlyyQuizHistoryPage() {
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_QUIZ_HISTORY_PAGE)
+  }
+
+  @ReactMethod
+  fun openFlyyQuizListPage() {
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_QUIZ_LIST_PAGE)
+  }
+
+  @ReactMethod
   fun sendEvent(key: String?, value: String?) {
     Flyy.sendEvent(key, value)
   }

@@ -15,6 +15,9 @@ public class FlyyRouteActivity extends AppCompatActivity {
   public static final String FLYY_WALLET_PAGE = "flyy_wallet_page";
   public static final String FLYY_GIFT_CARDS_PAGE = "flyy_gift_cards_page";
   public static final String FLYY_REFERRAL_HISTORY_PAGE = "flyy_referral_history_page";
+  public static final String FLYY_QUIZ_PAGE = "flyy_quiz_page";
+  public static final String FLYY_QUIZ_HISTORY_PAGE = "flyy_quiz_history_page";
+  public static final String FLYY_QUIZ_LIST_PAGE = "flyy_quiz_list_page";
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +41,15 @@ public class FlyyRouteActivity extends AppCompatActivity {
           break;
         case FLYY_REFERRAL_HISTORY_PAGE:
           Flyy.navigateToReferralHistoryActivity(this);
+          break;
+        case FLYY_QUIZ_PAGE:
+          Flyy.navigateToQuizActivity(this, 0);
+          break;
+        case FLYY_QUIZ_HISTORY_PAGE:
+          Flyy.navigateToQuizHistoryActivity(this);
+          break;
+        case FLYY_QUIZ_LIST_PAGE:
+          Flyy.navigateToQuizListActivity(this);
           break;
         default:
           throw new IllegalStateException("Unexpected value: " + activityToOpen);
