@@ -34,6 +34,23 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
+  fun initSDKWithReferralCallback(partnerToken: String?, environment: Int, referralCallBack: Callback) {
+    Flyy.init(context, partnerToken,
+      environment) { referrerData -> referralCallBack.invoke(referrerData) }
+  }
+
+  @ReactMethod
+  fun logout() {
+    Flyy.logout(context)
+  }
+
+  @ReactMethod
+  fun showNotificationPopup(notificationId: Int, title: String?, message: String?,
+                            bigImage: String?, deeplink: String?, campaignId: Int) {
+    Flyy.showPopup(context, notificationId, title, message, bigImage, deeplink, campaignId)
+  }
+
+  @ReactMethod
   fun setUser(externalUserId: String?) {
     Flyy.setUser(externalUserId)
   }
@@ -42,9 +59,12 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   fun setUserWithCallBack(externalUserId: String?, successCallBack: Callback) {
     Flyy.setUser(externalUserId) {
       successCallBack.invoke("Success")
-      //        map.putString("message", "Success");
-//        promise.resolve(map);
     }
+  }
+
+  @ReactMethod
+  fun setUserWithSegment(externalUserId: String?, segmentId: String?, successCallBack: Callback) {
+    Flyy.setUser(externalUserId, segmentId) { successCallBack.invoke("success") }
   }
 
   @ReactMethod
@@ -56,9 +76,12 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   fun setNewUserWithCallBack(externalUserId: String?, successCallBack: Callback) {
     Flyy.setNewUser(externalUserId) {
       successCallBack.invoke("Success")
-      //        map.putString("message", "Success");
-//        promise.resolve(map);
     }
+  }
+
+  @ReactMethod
+  fun setNewUserWithSegment(externalUserId: String?, segmentId: String?, successCallBack: Callback) {
+    Flyy.setNewUser(externalUserId, segmentId) { successCallBack.invoke("success") }
   }
 
   @ReactMethod
@@ -70,9 +93,18 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   fun setUserNameWithCallBack(userName: String?, successCallBack: Callback) {
     Flyy.setUsername(userName) {
       successCallBack.invoke("Success")
-      //        map.putString("message", "Success");
-//        promise.resolve(map);
     }
+  }
+
+  @ReactMethod
+  fun setRedemptionDetails(accountType: String?, accountNumber: String?, ifscCode: String?, name: String?,
+                           upiId: String?) {
+    Flyy.setRedemptionDetails(accountType, accountNumber, ifscCode, name, upiId)
+  }
+
+  @ReactMethod
+  fun addUserToSegment(segmentTitle: String?, segmentKey: String?) {
+    Flyy.addUserToSegment(segmentTitle, segmentKey);
   }
 
   private fun openFlyyRouteActivity(pageToOpen: String) {

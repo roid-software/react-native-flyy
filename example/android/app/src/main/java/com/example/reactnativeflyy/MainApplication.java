@@ -27,7 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for FlyyExample:
           // packages.add(new MyReactNativePackage());
-          packages.add(new FlyyPackage());
+//          packages.add(new FlyyPackage());
           return packages;
         }
 
