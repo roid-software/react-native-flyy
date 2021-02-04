@@ -103,55 +103,71 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
+  fun setBankDetails(accountNumber: String?, ifscCode: String?, name: String?) {
+    Flyy.setBankDetails(accountNumber, ifscCode, name)
+  }
+
+  @ReactMethod
+  fun setUPIDetails(upiId: String?) {
+    Flyy.setUPI(upiId)
+  }
+
+  @ReactMethod
   fun addUserToSegment(segmentTitle: String?, segmentKey: String?) {
     Flyy.addUserToSegment(segmentTitle, segmentKey);
   }
 
-  private fun openFlyyRouteActivity(pageToOpen: String) {
+  private fun openFlyyRouteActivity(pageToOpen: String, segmentId: String?) {
     val startOffersActivity = Intent(context, FlyyRouteActivity::class.java)
     startOffersActivity.putExtra(FlyyRouteActivity.PAGE_TO_OPEN, pageToOpen)
+    startOffersActivity.putExtra(FlyyRouteActivity.SEGMENT_ID, segmentId)
     startOffersActivity.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     context!!.startActivity(startOffersActivity)
   }
 
   @ReactMethod
   fun openOffersScreen() {
-    openFlyyRouteActivity(FlyyRouteActivity.FLYY_OFFERS_PAGE)
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_OFFERS_PAGE, null)
+  }
+
+  @ReactMethod
+  fun openOffersScreen(segmentId: String?) {
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_OFFERS_PAGE, segmentId)
   }
 
   @ReactMethod
   fun openRewardsScreen() {
-    openFlyyRouteActivity(FlyyRouteActivity.FLYY_REWARDS_PAGE)
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_REWARDS_PAGE, null)
   }
 
   @ReactMethod
   fun openWalletScreen() {
-    openFlyyRouteActivity(FlyyRouteActivity.FLYY_WALLET_PAGE)
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_WALLET_PAGE, null)
   }
 
   @ReactMethod
   fun openGiftCardScreen() {
-    openFlyyRouteActivity(FlyyRouteActivity.FLYY_GIFT_CARDS_PAGE)
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_GIFT_CARDS_PAGE, null)
   }
 
   @ReactMethod
   fun openReferralHistory() {
-    openFlyyRouteActivity(FlyyRouteActivity.FLYY_REFERRAL_HISTORY_PAGE)
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_REFERRAL_HISTORY_PAGE, null)
   }
 
   @ReactMethod
   fun openFlyyQuizPage() {
-    openFlyyRouteActivity(FlyyRouteActivity.FLYY_QUIZ_PAGE)
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_QUIZ_PAGE, null)
   }
 
   @ReactMethod
   fun openFlyyQuizHistoryPage() {
-    openFlyyRouteActivity(FlyyRouteActivity.FLYY_QUIZ_HISTORY_PAGE)
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_QUIZ_HISTORY_PAGE, null)
   }
 
   @ReactMethod
   fun openFlyyQuizListPage() {
-    openFlyyRouteActivity(FlyyRouteActivity.FLYY_QUIZ_LIST_PAGE)
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_QUIZ_LIST_PAGE, null)
   }
 
   @ReactMethod
@@ -173,8 +189,6 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   fun sendEventWithCallBack(key: String?, value: String?, successCallBack: Callback) {
     Flyy.sendEvent(key, value) {
       successCallBack.invoke("Success")
-      //        map.putString("message", "Success");
-//        promise.resolve(map);
     }
   }
 
@@ -185,8 +199,6 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
       convertMapToJson(readableMap)
       Flyy.sendEvent(key, convertMapToJson(readableMap), OnFlyyTaskComplete {
         successCallBack.invoke("Success")
-        //          map.putString("message", "Success");
-//          promise.resolve(map);
       })
     } catch (e: JSONException) {
       e.printStackTrace()
