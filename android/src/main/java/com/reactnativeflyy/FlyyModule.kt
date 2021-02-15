@@ -131,7 +131,7 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
-  fun openOffersScreen(segmentId: String?) {
+  fun openOffersScreenWithSegment(segmentId: String?) {
     openFlyyRouteActivity(FlyyRouteActivity.FLYY_OFFERS_PAGE, segmentId)
   }
 
