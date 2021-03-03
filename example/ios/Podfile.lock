@@ -57,7 +57,7 @@ PODS:
   - FlipperKit/SKIOSNetworkPlugin (0.54.0):
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
-  - FlyyFramework (1.1.0)
+  - FlyyFramework (1.1.6)
   - Folly (2020.01.13.00):
     - boost-for-react-native
     - DoubleConversion
@@ -237,7 +237,7 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-flyy (0.1.0):
+  - react-native-flyy (1.1.7):
     - FlyyFramework
     - React-Core
   - React-RCTActionSheet (0.63.4):
@@ -440,7 +440,7 @@ SPEC CHECKSUMS:
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   Flipper-RSocket: 64e7431a55835eb953b0bf984ef3b90ae9fdddd7
   FlipperKit: ab353d41aea8aae2ea6daaf813e67496642f3d7d
-  FlyyFramework: 63e7edf5d638ca13c5d8d844bec98f78392b8575
+  FlyyFramework: 00ebdd55859689f3911c51edc9b68757c96366bf
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   OpenSSL-Universal: ff34003318d5e1163e9529b08470708e389ffcdd
@@ -454,7 +454,7 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-flyy: f6d338810bf0db6fa6f0b4471e645a539c3cfb9b
+  react-native-flyy: 9c5d96328438350abbec4c8dfd29d60ba12b9932
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -470,4 +470,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b36a66de097b2c53ce8467990c66e1c27965480b
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

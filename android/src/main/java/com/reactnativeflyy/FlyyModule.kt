@@ -7,6 +7,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import theflyy.com.flyy.Flyy
+import theflyy.com.flyy.helpers.FlyyReferrerDataListener
 import theflyy.com.flyy.helpers.OnFlyyTaskComplete
 import java.util.*
 
@@ -29,42 +30,30 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
+  fun setPackageName(packageName: String) {
+    //only for ios
+  }
+
+  @ReactMethod
   fun initSDK(partnerToken: String?, environment: Int) {
     Flyy.init(context, partnerToken, environment)
   }
 
   @ReactMethod
   fun initSDKWithReferralCallback(partnerToken: String?, environment: Int, referralCallBack: Callback) {
-    Flyy.init(context, partnerToken,
-      environment) { referrerData -> referralCallBack.invoke(referrerData) }
+    Flyy.init(context, partnerToken, environment, FlyyReferrerDataListener { referrerData ->
+      referralCallBack.invoke(referrerData)
+    })
+  }
+
+  @ReactMethod
+  fun initSDKWithThemeColors(partnerToken: String?, environment: Int, colorPrimary: String?, colorPrimaryDark: String?) {
+    Flyy.init(context, partnerToken, environment, colorPrimary, colorPrimaryDark)
   }
 
   @ReactMethod
   fun logout() {
     Flyy.logout(context)
-  }
-
-  @ReactMethod
-  fun showNotificationPopup(notificationId: Int, title: String?, message: String?,
-                            bigImage: String?, deeplink: String?, campaignId: Int) {
-    Flyy.showPopup(context, notificationId, title, message, bigImage, deeplink, campaignId)
-  }
-
-  @ReactMethod
-  fun setUser(externalUserId: String?) {
-    Flyy.setUser(externalUserId)
-  }
-
-  @ReactMethod
-  fun setUserWithCallBack(externalUserId: String?, successCallBack: Callback) {
-    Flyy.setUser(externalUserId) {
-      successCallBack.invoke("Success")
-    }
-  }
-
-  @ReactMethod
-  fun setUserWithSegment(externalUserId: String?, segmentId: String?, successCallBack: Callback) {
-    Flyy.setUser(externalUserId, segmentId) { successCallBack.invoke("success") }
   }
 
   @ReactMethod
@@ -74,14 +63,35 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
 
   @ReactMethod
   fun setNewUserWithCallBack(externalUserId: String?, successCallBack: Callback) {
-    Flyy.setNewUser(externalUserId) {
-      successCallBack.invoke("Success")
-    }
+    Flyy.setNewUser(externalUserId, OnFlyyTaskComplete {
+      successCallBack.invoke("success")
+    })
   }
 
   @ReactMethod
   fun setNewUserWithSegment(externalUserId: String?, segmentId: String?, successCallBack: Callback) {
-    Flyy.setNewUser(externalUserId, segmentId) { successCallBack.invoke("success") }
+    Flyy.setNewUser(externalUserId, segmentId, OnFlyyTaskComplete {
+      successCallBack.invoke("success")
+    })
+  }
+
+  @ReactMethod
+  fun setUser(externalUserId: String?) {
+    Flyy.setUser(externalUserId)
+  }
+
+  @ReactMethod
+  fun setUserWithCallBack(externalUserId: String?, successCallBack: Callback) {
+    Flyy.setUser(externalUserId, OnFlyyTaskComplete {
+      successCallBack.invoke("success")
+    })
+  }
+
+  @ReactMethod
+  fun setUserWithSegment(externalUserId: String?, segmentId: String?, successCallBack: Callback) {
+    Flyy.setUser(externalUserId, segmentId, OnFlyyTaskComplete {
+      successCallBack.invoke("success")
+    })
   }
 
   @ReactMethod
@@ -91,9 +101,7 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
 
   @ReactMethod
   fun setUserNameWithCallBack(userName: String?, successCallBack: Callback) {
-    Flyy.setUsername(userName) {
-      successCallBack.invoke("Success")
-    }
+    Flyy.setUsername(userName, OnFlyyTaskComplete { successCallBack.invoke("success") })
   }
 
   @ReactMethod
@@ -115,6 +123,12 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   @ReactMethod
   fun addUserToSegment(segmentTitle: String?, segmentKey: String?) {
     Flyy.addUserToSegment(segmentTitle, segmentKey);
+  }
+
+  @ReactMethod
+  fun showNotificationPopup(notificationId: Int, title: String?, message: String?,
+                            bigImage: String?, deeplink: String?, campaignId: Int) {
+    Flyy.showPopup(context, notificationId, title, message, bigImage, deeplink, campaignId)
   }
 
   private fun openFlyyRouteActivity(pageToOpen: String, segmentId: String?) {
@@ -171,6 +185,11 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
+  fun openFlyyStampsPage() {
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_STAMPS_PAGE, null)
+  }
+
+  @ReactMethod
   fun sendEvent(key: String?, value: String?) {
     Flyy.sendEvent(key, value)
   }
@@ -178,7 +197,6 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   @ReactMethod
   fun sendEvent(key: String?, readableMap: ReadableMap?) {
     try {
-      convertMapToJson(readableMap)
       Flyy.sendEvent(key, convertMapToJson(readableMap))
     } catch (e: JSONException) {
       e.printStackTrace()
@@ -187,18 +205,17 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
 
   @ReactMethod
   fun sendEventWithCallBack(key: String?, value: String?, successCallBack: Callback) {
-    Flyy.sendEvent(key, value) {
-      successCallBack.invoke("Success")
-    }
+    Flyy.sendEvent(key, value, OnFlyyTaskComplete {
+      successCallBack.invoke("success")
+    })
   }
 
   @ReactMethod
   fun sendEventWithCallBack(key: String?, readableMap: ReadableMap?,
                             successCallBack: Callback) {
     try {
-      convertMapToJson(readableMap)
       Flyy.sendEvent(key, convertMapToJson(readableMap), OnFlyyTaskComplete {
-        successCallBack.invoke("Success")
+        successCallBack.invoke("success")
       })
     } catch (e: JSONException) {
       e.printStackTrace()

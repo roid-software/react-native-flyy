@@ -94,6 +94,14 @@
                 {
                     [self.navigationController popViewControllerAnimated:YES];
                 }
+            } else if ([param isEqualToString:@"quiz-list"])
+            {
+                Flyy *flyyInstance = [[Flyy alloc] init];
+                [flyyInstance openFlyyQuizListViewControllerWithNavigationController:self.navigationController];
+            } else if ([param isEqualToString:@"quiz-details"])
+            {
+                Flyy *flyyInstance = [[Flyy alloc] init];
+                [flyyInstance openFlyyQuizViewControllerWithNavigationController:self.navigationController];
             }
             else
             {

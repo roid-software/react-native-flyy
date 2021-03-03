@@ -7,8 +7,16 @@ import Flyy from 'react-native-flyy';
 export default class App extends React.Component {
 
   componentDidMount() {
+    Flyy.setPackageName("");
     //initalize flyy sdk
-    Flyy.initSDK("partner-token", Flyy.PRODUCTION);
+    Flyy.initSDK("e6ba6f017fd8712b6fad", Flyy.PRODUCTION);
+
+    // debugger
+        // Flyy.initSDKWithReferralCallback("e6ba6f017fd8712b6fad", Flyy.PRODUCTION,
+        // (referralData) => {
+        //   debugger
+        //   console.log(`Callback value referralData ${referralData}`);
+        // });
   }
 
   render() {
@@ -40,65 +48,33 @@ export default class App extends React.Component {
   openOffersScreen() {
     if (this.state != null && this.state.name != null && this.state.name != "" &&
       this.state.number != null && this.state.number != "") {
-      //set user
-      Flyy.setUser(this.state.number);
+    
 
-      //set new user
-      Flyy.setNewUser(this.state.number);
+       Flyy.setUser(this.state.number);
 
       //set user with callback
-      Flyy.setUser(
-         this.state.number,
-        (success) => {
-                    console.log(`Callback value ${success}`);
-        }
-      );
-
-      //set new user with callback
-      Flyy.setNewUser(
-         this.state.number,
-        (success) => {
-                    console.log(`Callback value ${success}`);
-        }
-      );
+      // Flyy.setUserWithCallBack(
+      //    this.state.number,
+      //   (success) => {
+      //               console.log(`Callback value for set user ${success}`);
+      //   }
+      // );
 
       //set user name
       Flyy.setUserName(this.state.name);
 
-      //set user name with callback
-      Flyy.setUserName(
-         this.state.name,
-         (success) => {
-                   console.log(`Callback value ${success}`);
-         }
-      );
-
-      //send json event
-      const data = {
-        "platform": "Android",
-        "react": "native_test",
-        "this": "works"
-      }
-      Flyy.sendEvent("platform_info", JSON.stringify(data));
-
-      //send event
-      Flyy.sendEvent("platform_info", "ios/android");
-
-      //send json event with callback
-      Flyy.sendEvent(
-            "platform_info",  JSON.stringify(data),
-            (success) => {
-                 console.log(`Callback value ${success}`);
-            }
-      );
-
-      //send event with callback
-      Flyy.sendEvent(
-            "platform_info", "ios/android",
-            (success) => {
-                 console.log(`Callback value ${success}`);
-            }
-      );
+      // const data = {
+      //   "platform": "Android",
+      //   "react": "native_test",
+      //   "this": "works"
+      // }
+      // //send json event with callback
+      // Flyy.sendEventWithCallBack(
+      //       "platform_info",  JSON.stringify(data),
+      //       (success) => {
+      //            console.log(`Callback value for send event ${success}`);
+      //       }
+      // );
 
       //open offers screen
       Flyy.openOffersScreen();

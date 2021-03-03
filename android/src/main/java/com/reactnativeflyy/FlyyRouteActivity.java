@@ -19,6 +19,7 @@ public class FlyyRouteActivity extends AppCompatActivity {
   public static final String FLYY_QUIZ_PAGE = "flyy_quiz_page";
   public static final String FLYY_QUIZ_HISTORY_PAGE = "flyy_quiz_history_page";
   public static final String FLYY_QUIZ_LIST_PAGE = "flyy_quiz_list_page";
+  public static final String FLYY_STAMPS_PAGE = "flyy_stamps_page";
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class FlyyRouteActivity extends AppCompatActivity {
         case FLYY_QUIZ_LIST_PAGE:
           Flyy.navigateToQuizListActivity(this);
           break;
+        case FLYY_STAMPS_PAGE:
+          Flyy.navigateToStampActivity(this);
         default:
           throw new IllegalStateException("Unexpected value: " + activityToOpen);
       }

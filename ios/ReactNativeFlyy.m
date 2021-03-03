@@ -33,6 +33,29 @@ RCT_EXPORT_METHOD(initSDK: (NSString *)partnerToken :(int)environment)
     [flyyInstance initSDKWithPartnerToken:partnerToken environment: environment];
 }
 
+//Init flyy sdk with referral callback
+RCT_EXPORT_METHOD(initSDKWithReferralCallback: (NSString *)partnerToken :(int)environment :(RCTResponseSenderBlock)callback)
+{
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    
+    [flyyInstance initSDKWithPartnerToken:partnerToken environment: environment onComplete: ^(BOOL success, NSString * referralData) {
+        if(success) {
+            callback(@[referralData]);
+        }
+    }];
+}
+
+//Init flyy sdk with theme colors
+RCT_EXPORT_METHOD(initSDKWithThemeColors: (NSString *)partnerToken :(int)environment
+                  :(NSString *)colorPrimary :(NSString *)colorPrimaryDark)
+{
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    
+    [flyyInstance initSDKWithPartnerToken:partnerToken environment:environment themeColorPrimary:colorPrimary themeColorPrimaryDark:colorPrimaryDark];
+}
+
 //set user
 RCT_EXPORT_METHOD(setUser: (NSString *)userId)
 {
@@ -50,7 +73,20 @@ RCT_EXPORT_METHOD(setUserWithCallBack: (NSString *)userId :(RCTResponseSenderBlo
     
     [flyyInstance setUserWithExternalUserId:userId onComplete: ^(BOOL success) {
         if(success) {
-            callback(@[@("Success")]);
+            callback(@[@("success")]);
+        }
+    }];
+}
+
+//set user with segmentId callback
+RCT_EXPORT_METHOD(setUserWithSegementId: (NSString *)userId :(NSString *)segmentId :(RCTResponseSenderBlock)callback)
+{
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    
+    [flyyInstance setUserWithExternalUserId:userId segmentId:segmentId onComplete: ^(BOOL success) {
+        if(success) {
+            callback(@[@("success")]);
         }
     }];
 }
@@ -72,7 +108,20 @@ RCT_EXPORT_METHOD(setNewUserWithCallBack: (NSString *)userId :(RCTResponseSender
     
     [flyyInstance setNewUserWithExternalUserId:userId onComplete: ^(BOOL success) {
         if(success) {
-            callback(@[@("Success")]);
+            callback(@[@("success")]);
+        }
+    }];
+}
+
+//set new user with segmentId callback
+RCT_EXPORT_METHOD(setNewUserWithSegementId: (NSString *)userId :(NSString *)segmentId :(RCTResponseSenderBlock)callback)
+{
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    
+    [flyyInstance setNewUserWithExternalUserId:userId segmentId:segmentId onComplete: ^(BOOL success) {
+        if(success) {
+            callback(@[@("success")]);
         }
     }];
 }
@@ -94,7 +143,7 @@ RCT_EXPORT_METHOD(setUserNameWithCallBack: (NSString *)userName :(RCTResponseSen
     
     [flyyInstance setUserNameWithUserName:userName onComplete: ^(BOOL success) {
         if(success) {
-            callback(@[@("Success")]);
+            callback(@[@("success")]);
         }
     }];
 }
@@ -116,48 +165,58 @@ RCT_EXPORT_METHOD(sendEventWithCallBack: (NSString *)key withString:(NSString *)
     
     [flyyInstance sendEventWithKey:key value:value onComplete: ^(BOOL success) {
         if(success) {
-            callback(@[@("Success")]);
+            callback(@[@("success")]);
         }
     }];
 }
 
-////send event
-//RCT_EXPORT_METHOD(sendEvent: (NSString *)key withJsonObject:(NSDictionary *) jsonObject)
-//{
-//    //Instance of flyy class
-//    Flyy *flyyInstance = [[Flyy alloc] init];
-//
-//    NSError *writeError = nil;
-//
-//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&writeError];
-//
-//    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//
-//    [flyyInstance sendEventWithKey:key value:jsonString];
-//}
+//set redemption details
+RCT_EXPORT_METHOD(setRedemptionDetails: (NSString *)accountType :(NSString *)accountNumber :(NSString *)ifscCode
+                  :(NSString *)name :(NSString *)upiId)
+{
+    //TODO to be implemented later
+}
 
-////send event with callback
-//RCT_EXPORT_METHOD(sendEventWithCallBack: (NSString *)key withJsonObject:(NSDictionary *) jsonObject :(RCTResponseSenderBlock)callback)
-//{
-//    //Instance of flyy class
-//    Flyy *flyyInstance = [[Flyy alloc] init];
-//    
-//    NSError *writeError = nil;
-//    
-//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&writeError];
-//    
-//    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//    
-//    [flyyInstance sendEventWithKey:key value:jsonString onComplete: ^(BOOL success) {
-//        if(success) {
-//            callback(@[@("Success")]);
-//        }
-//    }];
-//}
+//set bank details
+RCT_EXPORT_METHOD(setBankDetails: (NSString *)accountNumber :(NSString *)ifscCode
+                  :(NSString *)name)
+{
+  //TODO to be implemented later
+}
+
+//set upi details
+RCT_EXPORT_METHOD(setUPIDetails: (NSString *)upiId)
+{
+    //TODO to be implemented later
+}
+
+//add user to segment
+RCT_EXPORT_METHOD(addUserToSegment: (NSString *)segmentTitle withString:(NSString *)segmentKey :(RCTResponseSenderBlock)callback)
+{
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    
+    [flyyInstance addUserToSegmentWithSegmentTitle:segmentTitle segmentKey:segmentKey onComplete: ^(BOOL success) {
+        if(success) {
+            callback(@[@("success")]);
+        }
+    }];
+}
+
+RCT_EXPORT_METHOD(showNotificationPopup: (int)notificationId :(NSString *)title :(NSString *)message :(NSString *)bigImage :(NSString *)deeplink :(int)campaignId) {
+    //TODO to be implemented later
+}
 
 //open offers screen
 RCT_EXPORT_METHOD(openOffersScreen)
 {
+    [self naviagteToPage:@"Loading Offers..." :@"https://web-sdk.theflyy.com/"];
+}
+
+//open offers screen with segemnt id
+RCT_EXPORT_METHOD(openOffersScreenWithSegment: (NSString *)segmentId)
+{
+//    Flyy.SEGMENT_ID = segmentId
     [self naviagteToPage:@"Loading Offers..." :@"https://web-sdk.theflyy.com/"];
 }
 
@@ -183,6 +242,30 @@ RCT_EXPORT_METHOD(openGiftCardScreen)
 RCT_EXPORT_METHOD(openReferralHistory)
 {
     [self naviagteToPage:@"Loading Referrals..." :@"https://web-sdk.theflyy.com/referrals"];
+}
+
+//open quiz screen
+RCT_EXPORT_METHOD(openFlyyQuizPage)
+{
+    
+}
+
+//open quiz history screen
+RCT_EXPORT_METHOD(openFlyyQuizHistoryPage)
+{
+   
+}
+
+//open quiz list screen
+RCT_EXPORT_METHOD(openFlyyQuizListPage)
+{
+    
+}
+
+//open stamps screen
+RCT_EXPORT_METHOD(openFlyyStampsPage)
+{
+    
 }
 
 - (void) naviagteToPage :(NSString *)pageTitle :(NSString *)pageurl{
