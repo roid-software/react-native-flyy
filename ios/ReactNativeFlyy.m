@@ -190,6 +190,12 @@ RCT_EXPORT_METHOD(setUPIDetails: (NSString *)upiId)
     //TODO to be implemented later
 }
 
+//set upi details
+RCT_EXPORT_METHOD(logout)
+{
+    //TODO to be implemented later
+}
+
 //add user to segment
 RCT_EXPORT_METHOD(addUserToSegment: (NSString *)segmentTitle withString:(NSString *)segmentKey :(RCTResponseSenderBlock)callback)
 {
