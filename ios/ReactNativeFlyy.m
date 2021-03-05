@@ -207,41 +207,45 @@ RCT_EXPORT_METHOD(showNotificationPopup: (int)notificationId :(NSString *)title 
     //TODO to be implemented later
 }
 
+RCT_EXPORT_METHOD(setReferralCode: (NSString *)referralCode) {
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+}
+
 //open offers screen
 RCT_EXPORT_METHOD(openOffersScreen)
 {
-    [self naviagteToPage:@"Loading Offers..." :@"https://web-sdk.theflyy.com/"];
+    [self naviagteToPage:@"Loading Offers..." :@"https://web-sdk.theflyy.com/" :@""];
 }
 
 //open offers screen with segemnt id
 RCT_EXPORT_METHOD(openOffersScreenWithSegment: (NSString *)segmentId)
 {
-//    Flyy.SEGMENT_ID = segmentId
-    [self naviagteToPage:@"Loading Offers..." :@"https://web-sdk.theflyy.com/"];
+    [self naviagteToPage:@"Loading Offers..." :@"https://web-sdk.theflyy.com/" :segmentId];
 }
 
 //open rewards screen
 RCT_EXPORT_METHOD(openRewardsScreen)
 {
-    [self naviagteToPage:@"Loading Rewards..." :@"https://web-sdk.theflyy.com/rewards"];
+    [self naviagteToPage:@"Loading Rewards..." :@"https://web-sdk.theflyy.com/rewards" :@""];
 }
 
 //open wallet screen
 RCT_EXPORT_METHOD(openWalletScreen)
 {
-    [self naviagteToPage:@"Loading Wallet..." :@"https://web-sdk.theflyy.com/wallet"];
+    [self naviagteToPage:@"Loading Wallet..." :@"https://web-sdk.theflyy.com/wallet" :@""];
 }
 
 //open gift cards screen
 RCT_EXPORT_METHOD(openGiftCardScreen)
 {
-    [self naviagteToPage:@"Loading Gift Cards..." :@"https://web-sdk.theflyy.com/gift-cards"];
+    [self naviagteToPage:@"Loading Gift Cards..." :@"https://web-sdk.theflyy.com/gift-cards" :@""];
 }
 
 //open referral history screen
 RCT_EXPORT_METHOD(openReferralHistory)
 {
-    [self naviagteToPage:@"Loading Referrals..." :@"https://web-sdk.theflyy.com/referrals"];
+    [self naviagteToPage:@"Loading Referrals..." :@"https://web-sdk.theflyy.com/referrals" :@""];
 }
 
 //open quiz screen
@@ -268,7 +272,7 @@ RCT_EXPORT_METHOD(openFlyyStampsPage)
     
 }
 
-- (void) naviagteToPage :(NSString *)pageTitle :(NSString *)pageurl{
+- (void) naviagteToPage :(NSString *)pageTitle :(NSString *)pageurl :(NSString *)segmentId {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
         dispatch_async(dispatch_get_main_queue(), ^(){
@@ -277,6 +281,7 @@ RCT_EXPORT_METHOD(openFlyyStampsPage)
             WebViewController *webViewController = [[WebViewController alloc] init];
             webViewController.pageLoadingTitle = pageTitle;
             webViewController.pageUrl = pageurl;
+            webViewController.segmentId = segmentId;
             [navController pushViewController:webViewController animated:YES];
         });
     });

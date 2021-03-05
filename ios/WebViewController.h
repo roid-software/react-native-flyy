@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong,nonatomic) NSString *pageLoadingTitle;
 @property (strong,nonatomic) NSString *pageUrl;
+@property (strong, nonatomic) NSString *segmentId;
 
 @end
 
