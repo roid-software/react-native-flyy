@@ -52,11 +52,6 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
-  fun logout() {
-    Flyy.logout(context)
-  }
-
-  @ReactMethod
   fun setNewUser(externalUserId: String?) {
     Flyy.setNewUser(externalUserId)
   }
@@ -129,6 +124,21 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   fun showNotificationPopup(notificationId: Int, title: String?, message: String?,
                             bigImage: String?, deeplink: String?, campaignId: Int) {
     Flyy.showPopup(context, notificationId, title, message, bigImage, deeplink, campaignId)
+  }
+
+  @ReactMethod
+  fun logout() {
+    Flyy.logout(context)
+  }
+
+  @ReactMethod
+  fun setReferralCode(referralCode: String?) {
+    Flyy.setReferrerCode(referralCode)
+  }
+
+  @ReactMethod
+  fun setSegmentId(segmentId: String?) {
+    Flyy.segmentId = segmentId
   }
 
   private fun openFlyyRouteActivity(pageToOpen: String, segmentId: String?) {

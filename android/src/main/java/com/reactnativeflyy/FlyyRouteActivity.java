@@ -58,7 +58,12 @@ public class FlyyRouteActivity extends AppCompatActivity {
           Flyy.navigateToQuizListActivity(this);
           break;
         case FLYY_STAMPS_PAGE:
-          Flyy.navigateToStampActivity(this);
+          if (getIntent().getStringExtra(SEGMENT_ID) != null) {
+            Flyy.navigateToStampActivity(this, getIntent().getStringExtra(SEGMENT_ID));
+          } else {
+            Flyy.navigateToStampActivity(this);
+          }
+          break;
         default:
           throw new IllegalStateException("Unexpected value: " + activityToOpen);
       }
