@@ -79,7 +79,7 @@ RCT_EXPORT_METHOD(setUserWithCallBack: (NSString *)userId :(RCTResponseSenderBlo
 }
 
 //set user with segmentId callback
-RCT_EXPORT_METHOD(setUserWithSegementId: (NSString *)userId :(NSString *)segmentId :(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(setUserWithSegment: (NSString *)userId :(NSString *)segmentId :(RCTResponseSenderBlock)callback)
 {
     //Instance of flyy class
     Flyy *flyyInstance = [[Flyy alloc] init];
@@ -114,7 +114,7 @@ RCT_EXPORT_METHOD(setNewUserWithCallBack: (NSString *)userId :(RCTResponseSender
 }
 
 //set new user with segmentId callback
-RCT_EXPORT_METHOD(setNewUserWithSegementId: (NSString *)userId :(NSString *)segmentId :(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(setNewUserWithSegment: (NSString *)userId :(NSString *)segmentId :(RCTResponseSenderBlock)callback)
 {
     //Instance of flyy class
     Flyy *flyyInstance = [[Flyy alloc] init];
@@ -197,14 +197,14 @@ RCT_EXPORT_METHOD(logout)
 }
 
 //add user to segment
-RCT_EXPORT_METHOD(addUserToSegment: (NSString *)segmentTitle withString:(NSString *)segmentKey :(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(addUserToSegment: (NSString *)segmentTitle withString:(NSString *)segmentKey)
 {
     //Instance of flyy class
     Flyy *flyyInstance = [[Flyy alloc] init];
     
     [flyyInstance addUserToSegmentWithSegmentTitle:segmentTitle segmentKey:segmentKey onComplete: ^(BOOL success) {
         if(success) {
-            callback(@[@("success")]);
+//            callback(@[@("success")]);
         }
     }];
 }
@@ -216,6 +216,14 @@ RCT_EXPORT_METHOD(showNotificationPopup: (int)notificationId :(NSString *)title 
 RCT_EXPORT_METHOD(setReferralCode: (NSString *)referralCode) {
     //Instance of flyy class
     Flyy *flyyInstance = [[Flyy alloc] init];
+    [flyyInstance setReferralCodeWithReferralCode:referralCode];
+}
+
+RCT_EXPORT_METHOD(setSegmentId: (NSString *)segmentId) {
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    
+    [flyyInstance setSegementIdWithSegementId:segmentId];
 }
 
 //open offers screen

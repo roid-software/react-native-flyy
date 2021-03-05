@@ -115,7 +115,7 @@
 {
     Flyy *flyyInstance = [[Flyy alloc] init];
     
-    NSString *jsData = [NSString stringWithFormat:@"handleSDKMessage('%@')",[flyyInstance getHeadersDataForWebView]];
+    NSString *jsData = [NSString stringWithFormat:@"handleSDKMessage('%@')",[flyyInstance getHeadersDataForWebViewWithSegmentId:self.segmentId]];
     [self.wkWebView evaluateJavaScript:jsData completionHandler:^(NSString *result, NSError * _Nullable error) {
         NSLog(@"%@",result);
     }];

@@ -7,9 +7,11 @@ import Flyy from 'react-native-flyy';
 export default class App extends React.Component {
 
   componentDidMount() {
-    Flyy.setPackageName("");
+    Flyy.setPackageName("com.example.reactnativeflyy");
     //initalize flyy sdk
-    Flyy.initSDK("e6ba6f017fd8712b6fad", Flyy.PRODUCTION);
+    // Flyy.initSDK("e6ba6f017fd8712b6fad", Flyy.PRODUCTION);
+
+    Flyy.initSDKWithThemeColors("e6ba6f017fd8712b6fad", Flyy.PRODUCTION, "#800000", "#800000");
 
     // debugger
         // Flyy.initSDKWithReferralCallback("e6ba6f017fd8712b6fad", Flyy.PRODUCTION,
@@ -52,7 +54,7 @@ export default class App extends React.Component {
 
        Flyy.setUser(this.state.number);
 
-      //set user with callback
+      // set user with callback
       // Flyy.setUserWithCallBack(
       //    this.state.number,
       //   (success) => {
@@ -60,8 +62,49 @@ export default class App extends React.Component {
       //   }
       // );
 
+      // Flyy.setNewUserWithSegment(
+      //    this.state.number, "all_users",
+      //   (success) => {
+      //               console.log(`Callback value for set new user with segment ${success}`);
+      //   }
+      // );
+
+      
+
       //set user name
-      Flyy.setUserName(this.state.name);
+      // Flyy.setUserName(this.state.name);
+
+      // Flyy.setUserNameWithCallBack(
+      //    this.state.name,
+      //   (success) => {
+      //               console.log(`Callback value for set user name ${success}`);
+      //   }
+      // );
+
+      Flyy.setRedemptionDetails("bank", "123456783456748", "kkbk4008", "Pooja Deshpande Test", "");
+
+      Flyy.setBankDetails("123456783456748", "kkbk4008", "Pooja Deshpande Test");
+
+      Flyy.setUPIDetails("pooja@upitest");
+
+      Flyy.addUserToSegment("segmentTitle", "segmentKey");
+
+      Flyy.showNotificationPopup(-1, "Test notification", "Testing notification popup", "", "", -1);
+
+      Flyy.logout();
+
+      Flyy.setReferralCode("ios-react-test");
+
+      Flyy.setSegmentId("all_users");
+
+      // Flyy.sendEvent("ios-react", "testing");
+
+      // Flyy.sendEventWithCallBack(
+      //         "ios-react",  "testing",
+      //         (success) => {
+      //              console.log(`Callback value for send event ${success}`);
+      //         }
+      //   );
 
       // const data = {
       //   "platform": "Android",
@@ -78,18 +121,24 @@ export default class App extends React.Component {
 
       //open offers screen
       Flyy.openOffersScreen();
-
-      //open referrals history screen
-      //Flyy.openReferralHistory();
+      // Flyy.openOffersScreenWithSegment("");
 
       //open rewards screen
-      //Flyy.openRewardsScreen();
+      // Flyy.openRewardsScreen();
 
       //open wallet screen
-      //Flyy.openWalletScreen();
+      // Flyy.openWalletScreen();
 
       //open gift cards screen
-      //Flyy.openGiftCardScreen();
+      // Flyy.openGiftCardScreen();
+
+      //open referrals history screen
+      // Flyy.openReferralHistory();
+
+      // Flyy.openFlyyQuizPage();
+      // Flyy.openFlyyQuizHistoryPage();
+      // Flyy.openFlyyQuizListPage();
+      // Flyy.openFlyyStampsPage();
     } else {
       console.log("Name and Number are mandatory fields");
     }
