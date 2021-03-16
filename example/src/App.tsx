@@ -9,7 +9,7 @@ export default class App extends React.Component {
   componentDidMount() {
     Flyy.setPackageName("com.example.reactnativeflyy");
     //initalize flyy sdk
-    // Flyy.initSDK("<partner-token>", Flyy.PRODUCTION);
+    // Flyy.initSDK("e6ba6f017fd8712b6fad", Flyy.PRODUCTION);
 
     Flyy.initSDKWithThemeColors("e6ba6f017fd8712b6fad", Flyy.PRODUCTION, "#800000", "#800000");
 

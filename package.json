@@ -157,6 +157,9 @@
     "example": "example",
     "lib": "lib"
   },
+  "resolutions": {
+    "react-dev-utils": "10.1.0"
+  },
   "dependencies": {
     "abab": "^2.0.5",
     "abort-controller": "^3.0.0",
