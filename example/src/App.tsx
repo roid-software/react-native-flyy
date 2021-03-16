@@ -9,9 +9,9 @@ export default class App extends React.Component {
   componentDidMount() {
     Flyy.setPackageName("com.example.reactnativeflyy");
     //initalize flyy sdk
-    Flyy.initSDK("<partner-token>", Flyy.PRODUCTION);
+    // Flyy.initSDK("<partner-token>", Flyy.PRODUCTION);
 
-    // Flyy.initSDKWithThemeColors("<partner-token>", Flyy.PRODUCTION, "#800000", "#800000");
+    Flyy.initSDKWithThemeColors("e6ba6f017fd8712b6fad", Flyy.PRODUCTION, "#800000", "#800000");
 
     // debugger
         // Flyy.initSDKWithReferralCallback("<partner-token>", Flyy.PRODUCTION,
@@ -118,7 +118,7 @@ export default class App extends React.Component {
       // );
 
       //open offers screen
-      // Flyy.openOffersScreen();
+      Flyy.openOffersScreen();
       // Flyy.openOffersScreenWithSegment("");
 
       //open rewards screen

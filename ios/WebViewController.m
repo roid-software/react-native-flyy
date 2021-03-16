@@ -103,6 +103,19 @@
                 Flyy *flyyInstance = [[Flyy alloc] init];
                 [flyyInstance openFlyyQuizViewControllerWithNavigationController:self.navigationController];
             }
+            else if ([param isEqualToString:@"share"])
+            {
+                NSString *shareUrl = body[@"share_url"];
+                NSString *shareMessage = body[@"message"];
+                NSString *shareWith = body[@"share_from"];
+                
+                
+                NSString * title =[NSString stringWithFormat:shareMessage,shareUrl];
+                NSArray* dataToShare = @[title];
+                UIActivityViewController* activityViewController =[[UIActivityViewController alloc] initWithActivityItems:dataToShare applicationActivities:nil];
+                activityViewController.excludedActivityTypes = @[UIActivityTypeAirDrop];
+                [self presentViewController:activityViewController animated:YES completion:^{}];
+            }
             else
             {
                 return;
