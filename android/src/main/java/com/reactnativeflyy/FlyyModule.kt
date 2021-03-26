@@ -31,7 +31,7 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
 
   @ReactMethod
   fun setPackageName(packageName: String) {
-    //only for ios
+    Flyy.setPackageName(packageName)
   }
 
   @ReactMethod
