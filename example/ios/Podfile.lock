@@ -235,7 +235,7 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-flyy (1.1.11):
+  - react-native-flyy (1.1.13):
     - FlyyFramework
     - React-Core
   - React-RCTActionSheet (0.63.4):
@@ -452,7 +452,7 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-flyy: 2a525acedb7c73a430a8f969c4d8373c0165dbc4
+  react-native-flyy: 0bb2c54383d3afcba6fb9ca4d50d25c2df60a797
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0

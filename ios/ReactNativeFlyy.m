@@ -12,7 +12,7 @@ static NSString * PRODUCTION = @"PRODUCTION";
 
 -(void)set_navigation_controller:(UINavigationController*)navigation  withCurrentViewController:(UIViewController*) controller
 {
-   [navigation pushViewController:controller animated:YES];
+    [navigation pushViewController:controller animated:YES];
 }
 
 //set package name
@@ -181,7 +181,7 @@ RCT_EXPORT_METHOD(setRedemptionDetails: (NSString *)accountType :(NSString *)acc
 RCT_EXPORT_METHOD(setBankDetails: (NSString *)accountNumber :(NSString *)ifscCode
                   :(NSString *)name)
 {
-  //TODO to be implemented later
+    //TODO to be implemented later
 }
 
 //set upi details
@@ -204,12 +204,20 @@ RCT_EXPORT_METHOD(addUserToSegment: (NSString *)segmentTitle withString:(NSStrin
     
     [flyyInstance addUserToSegmentWithSegmentTitle:segmentTitle segmentKey:segmentKey onComplete: ^(BOOL success) {
         if(success) {
-//            callback(@[@("success")]);
+            //            callback(@[@("success")]);
         }
     }];
 }
 
 RCT_EXPORT_METHOD(showNotificationPopup: (int)notificationId :(NSString *)title :(NSString *)message :(NSString *)bigImage :(NSString *)deeplink :(int)campaignId) {
+    //TODO to be implemented later
+}
+
+RCT_EXPORT_METHOD(showRewardWonPopup: (NSString *)title :(NSString *)message :(NSString *)deeplink :(NSString *)buttonText) {
+    //TODO to be implemented later
+}
+
+RCT_EXPORT_METHOD(showRewardWonScratchPopup: (NSString *)title :(NSString *)message :(bool *)showConfetti :(NSString *)refNum) {
     //TODO to be implemented later
 }
 
@@ -271,7 +279,7 @@ RCT_EXPORT_METHOD(openFlyyQuizPage)
 //open quiz history screen
 RCT_EXPORT_METHOD(openFlyyQuizHistoryPage)
 {
-   
+    
 }
 
 //open quiz list screen
@@ -288,9 +296,9 @@ RCT_EXPORT_METHOD(openFlyyStampsPage)
 
 - (void) naviagteToPage :(NSString *)pageTitle :(NSString *)pageurl :(NSString *)segmentId {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
+        
         dispatch_async(dispatch_get_main_queue(), ^(){
-
+            
             UINavigationController *navController = (UINavigationController *)[[[UIApplication sharedApplication] keyWindow] rootViewController];
             WebViewController *webViewController = [[WebViewController alloc] init];
             webViewController.pageLoadingTitle = pageTitle;

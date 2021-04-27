@@ -127,6 +127,17 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
+  fun showRewardWonPopup(title: String?, message: String?, deeplink: String?, buttonText: String?,
+                         showConfetti: Boolean) {
+    Flyy.showRewardWonPopup(context, title, message, deeplink, buttonText, showConfetti)
+  }
+
+  @ReactMethod
+  fun showRewardWonScratchPopup(title: String?, message: String?, showConfetti: Boolean, refNum: String?) {
+    Flyy.showRewardWonScratchPopup(context, title, message, showConfetti, refNum)
+  }
+
+  @ReactMethod
   fun logout() {
     Flyy.logout(context)
   }

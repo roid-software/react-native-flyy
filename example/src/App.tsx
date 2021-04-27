@@ -7,11 +7,11 @@ import Flyy from 'react-native-flyy';
 export default class App extends React.Component {
 
   componentDidMount() {
-    Flyy.setPackageName("com.theflyy.flyy_flutter_plugin_example");
+    Flyy.setPackageName("com.example.reactnativeflyy");
     //initalize flyy sdk
     // Flyy.initSDK("90219bb234f10fbff1b0", Flyy.PRODUCTION);
 
-    Flyy.initSDKWithThemeColors("90219bb234f10fbff1b0", Flyy.PRODUCTION, "#800000", "#800000");
+    Flyy.initSDKWithThemeColors("e6ba6f017fd8712b6fad", Flyy.PRODUCTION, "#800000", "#800000");
 
     // debugger
         // Flyy.initSDKWithReferralCallback("<partner-token>", Flyy.PRODUCTION,
