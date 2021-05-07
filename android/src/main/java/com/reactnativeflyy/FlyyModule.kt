@@ -8,6 +8,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import theflyy.com.flyy.Flyy
 import theflyy.com.flyy.helpers.FlyyReferrerDataListener
+import theflyy.com.flyy.helpers.FlyyVerifyReferralCode
 import theflyy.com.flyy.helpers.OnFlyyTaskComplete
 import java.util.*
 
@@ -191,7 +192,8 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
-  fun openFlyyQuizPage() {
+  fun openFlyyQuizPage(quizId: Int) {
+    FlyyRouteActivity.QUIZ_ID = quizId
     openFlyyRouteActivity(FlyyRouteActivity.FLYY_QUIZ_PAGE, null)
   }
 
@@ -208,6 +210,20 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   @ReactMethod
   fun openFlyyStampsPage() {
     openFlyyRouteActivity(FlyyRouteActivity.FLYY_STAMPS_PAGE, null)
+  }
+
+  @ReactMethod
+  fun openFlyyInviteDetailsPage(offerId: Int) {
+    FlyyRouteActivity.OFFER_ID = offerId
+    openFlyyRouteActivity(FlyyRouteActivity.FLYY_INVITE_DETAILS_PAGE, null)
+  }
+
+  @ReactMethod
+  fun verifyReferralCode(referralCode: String?, successCallBack: Callback) {
+    Flyy.verifyReferralCode(context, referralCode, FlyyVerifyReferralCode {
+      isValid, referralCode ->
+        successCallBack.invoke(isValid, referralCode)
+    })
   }
 
   @ReactMethod

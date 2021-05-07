@@ -209,29 +209,45 @@ RCT_EXPORT_METHOD(addUserToSegment: (NSString *)segmentTitle withString:(NSStrin
     }];
 }
 
+//show notification pop up
 RCT_EXPORT_METHOD(showNotificationPopup: (int)notificationId :(NSString *)title :(NSString *)message :(NSString *)bigImage :(NSString *)deeplink :(int)campaignId) {
     //TODO to be implemented later
 }
 
+//show reward won popup
 RCT_EXPORT_METHOD(showRewardWonPopup: (NSString *)title :(NSString *)message :(NSString *)deeplink :(NSString *)buttonText) {
     //TODO to be implemented later
 }
 
+//show reward won scratch popup
 RCT_EXPORT_METHOD(showRewardWonScratchPopup: (NSString *)title :(NSString *)message :(bool *)showConfetti :(NSString *)refNum) {
     //TODO to be implemented later
 }
 
+//set referral code
 RCT_EXPORT_METHOD(setReferralCode: (NSString *)referralCode) {
     //Instance of flyy class
     Flyy *flyyInstance = [[Flyy alloc] init];
     [flyyInstance setReferralCodeWithReferralCode:referralCode];
 }
 
+//set segement id
 RCT_EXPORT_METHOD(setSegmentId: (NSString *)segmentId) {
     //Instance of flyy class
     Flyy *flyyInstance = [[Flyy alloc] init];
     
     [flyyInstance setSegementIdWithSegementId:segmentId];
+}
+
+//set user with callback
+RCT_EXPORT_METHOD(verifyReferralCode: (NSString *)referralCode :(RCTResponseSenderBlock)callback)
+{
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    
+    [flyyInstance verifyReferralCodeWithReferralCode:referralCode onComplete:^(BOOL isValid, NSString* referralUrl) {
+        callback(@[isValid, referralCode]);
+    }];
 }
 
 //open offers screen
@@ -290,6 +306,12 @@ RCT_EXPORT_METHOD(openFlyyQuizListPage)
 
 //open stamps screen
 RCT_EXPORT_METHOD(openFlyyStampsPage)
+{
+    
+}
+
+//open stamps screen
+RCT_EXPORT_METHOD(openFlyyInviteDetailsPage)
 {
     
 }

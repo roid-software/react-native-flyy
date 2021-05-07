@@ -11,6 +11,8 @@ public class FlyyRouteActivity extends AppCompatActivity {
 
   public static String PAGE_TO_OPEN = "page_to_open";
   public static String SEGMENT_ID = "segment_id";
+  public static int QUIZ_ID = 0;
+  public static int OFFER_ID = 0;
   public static final String FLYY_OFFERS_PAGE = "flyy_offers_page";
   public static final String FLYY_REWARDS_PAGE = "flyy_rewards_page";
   public static final String FLYY_WALLET_PAGE = "flyy_wallet_page";
@@ -20,6 +22,7 @@ public class FlyyRouteActivity extends AppCompatActivity {
   public static final String FLYY_QUIZ_HISTORY_PAGE = "flyy_quiz_history_page";
   public static final String FLYY_QUIZ_LIST_PAGE = "flyy_quiz_list_page";
   public static final String FLYY_STAMPS_PAGE = "flyy_stamps_page";
+  public static final String FLYY_INVITE_DETAILS_PAGE = "flyy_invite_details_page";
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +52,7 @@ public class FlyyRouteActivity extends AppCompatActivity {
           Flyy.navigateToReferralHistoryActivity(this);
           break;
         case FLYY_QUIZ_PAGE:
-          Flyy.navigateToQuizActivity(this, 0);
+          Flyy.navigateToQuizActivity(this, QUIZ_ID);
           break;
         case FLYY_QUIZ_HISTORY_PAGE:
           Flyy.navigateToQuizHistoryActivity(this);
@@ -64,6 +67,8 @@ public class FlyyRouteActivity extends AppCompatActivity {
             Flyy.navigateToStampActivity(this);
           }
           break;
+        case FLYY_INVITE_DETAILS_PAGE:
+          Flyy.navigateToInviteDetailActivity(this, OFFER_ID);
         default:
           throw new IllegalStateException("Unexpected value: " + activityToOpen);
       }
