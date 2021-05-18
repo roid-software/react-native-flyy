@@ -247,9 +247,9 @@ RCT_EXPORT_METHOD(verifyReferralCode: (NSString *)referralCode :(RCTResponseSend
     
     [flyyInstance verifyReferralCodeWithReferralCode:referralCode onComplete:^(bool isValid, NSString* referralUrl) {
         if (isValid) {
-            callback(@[@true, referralUrl]);
+            callback(@[@"true", referralUrl]);
         } else {
-            callback(@[@false, referralUrl]);
+            callback(@[@"false", referralUrl]);
         }
     }];
 }
