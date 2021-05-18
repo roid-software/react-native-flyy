@@ -236,7 +236,7 @@ RCT_EXPORT_METHOD(setSegmentId: (NSString *)segmentId) {
     //Instance of flyy class
     Flyy *flyyInstance = [[Flyy alloc] init];
     
-    [flyyInstance setSegementIdWithSegementId:segmentId];
+    [flyyInstance setSegmentIdWithSegementId:segmentId];
 }
 
 //set user with callback
@@ -245,8 +245,12 @@ RCT_EXPORT_METHOD(verifyReferralCode: (NSString *)referralCode :(RCTResponseSend
     //Instance of flyy class
     Flyy *flyyInstance = [[Flyy alloc] init];
     
-    [flyyInstance verifyReferralCodeWithReferralCode:referralCode onComplete:^(BOOL isValid, NSString* referralUrl) {
-        callback(@[isValid, referralCode]);
+    [flyyInstance verifyReferralCodeWithReferralCode:referralCode onComplete:^(bool isValid, NSString* referralUrl) {
+        if (isValid) {
+            callback(@[@true, referralUrl]);
+        } else {
+            callback(@[@false, referralUrl]);
+        }
     }];
 }
 

@@ -72,6 +72,8 @@ export default class App extends React.Component {
       //set user name
       Flyy.setUserName(this.state.name);
 
+
+
       // Flyy.setUserNameWithCallBack(
       //    this.state.name,
       //   (success) => {
@@ -119,6 +121,10 @@ export default class App extends React.Component {
 
       //open offers screen
       Flyy.openOffersScreen();
+      Flyy.verifyReferralCode("sdfh123", 
+      (isValid, referralCode) => {
+        console.log(isValid, referralCode);
+      });
       // Flyy.openOffersScreenWithSegment("");
 
       //open rewards screen
