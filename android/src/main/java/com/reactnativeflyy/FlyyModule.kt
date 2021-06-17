@@ -7,10 +7,12 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import theflyy.com.flyy.Flyy
+import theflyy.com.flyy.helpers.FlyyNotificationHandler
 import theflyy.com.flyy.helpers.FlyyReferrerDataListener
 import theflyy.com.flyy.helpers.FlyyVerifyReferralCode
 import theflyy.com.flyy.helpers.OnFlyyTaskComplete
 import java.util.*
+import org.xml.sax.Parser as Parser1
 
 
 class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
@@ -224,6 +226,28 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
       isValid, referralCode ->
         successCallBack.invoke(isValid, referralCode)
     })
+  }
+
+  @ReactMethod
+  fun handleNotification(remoteMessageString: String?) {
+    val jsonObj = JSONObject(remoteMessageString)
+    val remoteMessageData = jsonObj.toMap()
+    FlyyNotificationHandler.handleFlutterAndReactNativeNotification(context, remoteMessageData as MutableMap<String, String>?, null, null)
+
+  }
+
+  fun JSONObject.toMap(): Map<String, *> = keys().asSequence().associateWith {
+    when (val value = this[it])
+    {
+      is JSONArray ->
+      {
+        val map = (0 until value.length()).associate { Pair(it.toString(), value[it]) }
+        JSONObject(map).toMap().values.toList()
+      }
+      is JSONObject -> value.toMap()
+      JSONObject.NULL -> null
+      else            -> value
+    }
   }
 
   @ReactMethod

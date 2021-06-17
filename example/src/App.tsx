@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { StyleSheet, View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
 import Flyy from 'react-native-flyy';
 import messaging from '@react-native-firebase/messaging';
 import firebase from '@react-native-firebase/app';
@@ -23,7 +23,11 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
-    firebase.initializeApp();
+    const firebaseConfig = {
+      apiKey: 'AIzaSyCFOazKEPQ7hGGahThUGvgh0T5hvyItCV8'
+    };
+
+    firebase.initializeApp(firebaseConfig);
     Flyy.setPackageName("com.example.reactnativeflyy");
     //initalize flyy sdk
     // Flyy.initSDK("90219bb234f10fbff1b0", Flyy.PRODUCTION);
@@ -49,7 +53,12 @@ export default class App extends React.Component {
     } else console.log('Not Authorization status:', authStatus);
 
     messaging().onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      console.log(remoteMessage.data.notification_source);
+      if(remoteMessage.data.notification_source === "flyy_sdk") {
+        Flyy.handleNotification(JSON.stringify(remoteMessage.data));
+      }
+      
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage.data));
     });
 
     /**
@@ -105,10 +114,14 @@ export default class App extends React.Component {
      */
     messaging().setBackgroundMessageHandler(
       async (remoteMessage) => {
-        console.log(
-          'Message handled in the background!',
-          remoteMessage
-        );
+        if(remoteMessage.data.notification_source === "flyy_sdk") {
+          Flyy.handleNotification(JSON.stringify(remoteMessage.data));
+        }
+        Flyy.handleNotification(JSON.stringify(remoteMessage.data));
+        // console.log(
+        //   'Message handled in the background!',
+        //   remoteMessage.data
+        // );
     });
   }
 
