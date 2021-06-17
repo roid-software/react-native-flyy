@@ -1,6 +1,8 @@
 rootProject.name = 'FlyyExample'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
-include ':app'
+include ':app', 'flyy', 'scratchoff'
+project(':flyy').projectDir = new File('/Users/poojadeshpande/Documents/Projects/Android_Projects/flyy_android_sdk/flyy')
+project(':scratchoff').projectDir = new File('/Users/poojadeshpande/Documents/Projects/Android_Projects/flyy_android_sdk/scratchoff')
 
 include ':reactnativeflyy'
 project(':reactnativeflyy').projectDir = new File(rootProject.projectDir, '../../android')

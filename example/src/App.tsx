@@ -1,12 +1,29 @@
 import * as React from 'react';
 
-import { StyleSheet, View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
 import Flyy from 'react-native-flyy';
+import firebase from "@react-native-firebase";
+import messaging from '@react-native-firebase/messaging';
 
 
 export default class App extends React.Component {
 
+  requestUserPermission = async () => {
+    /**
+     * On iOS, messaging permission must be requested by
+     * the current application before messages can be
+     * received or sent
+     */
+    const authStatus = await messaging().requestPermission();
+    console.log('Authorization status(authStatus):', authStatus);
+    return (
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL
+    );
+  };
+
   componentDidMount() {
+    firebase.initializeApp();
     Flyy.setPackageName("com.example.reactnativeflyy");
     //initalize flyy sdk
     // Flyy.initSDK("90219bb234f10fbff1b0", Flyy.PRODUCTION);
@@ -14,11 +31,85 @@ export default class App extends React.Component {
     Flyy.initSDKWithThemeColors("e6ba6f017fd8712b6fad", Flyy.PRODUCTION, "#800000", "#800000");
 
     // debugger
-        // Flyy.initSDKWithReferralCallback("<partner-token>", Flyy.PRODUCTION,
-        // (referralData) => {
-        //   debugger
-        //   console.log(`Callback value referralData ${referralData}`);
-        // });
+    // Flyy.initSDKWithReferralCallback("<partner-token>", Flyy.PRODUCTION,
+    // (referralData) => {
+    //   debugger
+    //   console.log(`Callback value referralData ${referralData}`);
+    // });
+
+    if (this.requestUserPermission()) {
+      /**
+       * Returns an FCM token for this device
+       */
+      messaging()
+        .getToken()
+        .then((fcmToken) => {
+          console.log('FCM Token -> ', fcmToken);
+        });
+    } else console.log('Not Authorization status:', authStatus);
+
+    messaging().onMessage(async remoteMessage => {
+      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    });
+
+    /**
+     * When a notification from FCM has triggered the application
+     * to open from a quit state, this method will return a
+     * `RemoteMessage` containing the notification data, or
+     * `null` if the app was opened via another method.
+     */
+    messaging()
+      .getInitialNotification()
+      .then(async (remoteMessage) => {
+        if (remoteMessage) {
+          console.log(
+            'getInitialNotification:' +
+              'Notification caused app to open from quit state',
+          );
+          console.log(remoteMessage);
+          Alert.alert
+          (
+            'getInitialNotification: Notification caused app to' +
+            ' open from quit state',
+          );
+        }
+      });
+
+    /**
+     * When the user presses a notification displayed via FCM,
+     * this listener will be called if the app has opened from
+     * a background state. See `getInitialNotification` to see
+     * how to watch for when a notification opens the app from
+     * a quit state.
+     */
+    messaging().onNotificationOpenedApp(async (remoteMessage) => {
+      if (remoteMessage) {
+        console.log(
+          'onNotificationOpenedApp: ' +
+            'Notification caused app to open from background state',
+        );
+        console.log(remoteMessage);
+        Alert.alert(
+          'onNotificationOpenedApp: Notification caused app to' +
+          ' open from background state',
+        );
+      }
+    });
+
+    /**
+     * Set a message handler function which is called when
+     * the app is in the background or terminated. In Android,
+     * a headless task is created, allowing you to access the
+     * React Native environment to perform tasks such as updating
+     * local storage, or sending a network request.
+     */
+    messaging().setBackgroundMessageHandler(
+      async (remoteMessage) => {
+        console.log(
+          'Message handled in the background!',
+          remoteMessage
+        );
+    });
   }
 
   render() {
@@ -52,7 +143,7 @@ export default class App extends React.Component {
       this.state.number != null && this.state.number != "") {
 
 
-       Flyy.setUser(this.state.number);
+      Flyy.setUser(this.state.number);
 
       // Flyy.setNewUserWithCallBack(
       //    this.state.number,
@@ -121,10 +212,10 @@ export default class App extends React.Component {
 
       //open offers screen
       Flyy.openOffersScreen();
-      Flyy.verifyReferralCode("sdfh123", 
-      (isValid, referralCode) => {
-        console.log(isValid, referralCode);
-      });
+      Flyy.verifyReferralCode("sdfh123",
+        (isValid, referralCode) => {
+          console.log(isValid, referralCode);
+        });
       // Flyy.openOffersScreenWithSegment("");
 
       //open rewards screen
