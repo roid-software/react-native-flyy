@@ -12,6 +12,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.reactnativeflyy.FlyyPackage;
 
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
+import io.invertase.firebase.messaging.ReactNativeFirebaseMessagingPackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -25,6 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
+//          packages.add(new ReactNativeFirebaseAppPackage());
+//          packages.add(new ReactNativeFirebaseMessagingPackage());
           // Packages that cannot be autolinked yet can be added manually here, for FlyyExample:
           // packages.add(new MyReactNativePackage());
 //          packages.add(new FlyyPackage());
