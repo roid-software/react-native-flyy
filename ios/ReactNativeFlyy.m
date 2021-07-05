@@ -239,7 +239,7 @@ RCT_EXPORT_METHOD(setSegmentId: (NSString *)segmentId) {
     [flyyInstance setSegmentIdWithSegementId:segmentId];
 }
 
-//set user with callback
+//verify refferal code
 RCT_EXPORT_METHOD(verifyReferralCode: (NSString *)referralCode :(RCTResponseSenderBlock)callback)
 {
     //Instance of flyy class
@@ -252,6 +252,21 @@ RCT_EXPORT_METHOD(verifyReferralCode: (NSString *)referralCode :(RCTResponseSend
             callback(@[@"false", referralUrl]);
         }
     }];
+}
+
+//get share data
+RCT_EXPORT_METHOD(getShareData: (RCTResponseSenderBlock)callback)
+{
+}
+
+//get share data with offer id
+RCT_EXPORT_METHOD(getShareData: (int)offerId :(RCTResponseSenderBlock)callback)
+{
+}
+
+//get referral count
+RCT_EXPORT_METHOD(getReferralCount:(RCTResponseSenderBlock)callback)
+{
 }
 
 //open offers screen

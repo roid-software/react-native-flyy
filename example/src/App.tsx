@@ -117,7 +117,6 @@ export default class App extends React.Component {
         if(remoteMessage.data.notification_source === "flyy_sdk") {
           Flyy.handleNotification(JSON.stringify(remoteMessage.data));
         }
-        Flyy.handleNotification(JSON.stringify(remoteMessage.data));
         // console.log(
         //   'Message handled in the background!',
         //   remoteMessage.data
@@ -176,8 +175,6 @@ export default class App extends React.Component {
       //set user name
       Flyy.setUserName(this.state.name);
 
-
-
       // Flyy.setUserNameWithCallBack(
       //    this.state.name,
       //   (success) => {
@@ -223,12 +220,24 @@ export default class App extends React.Component {
       //       }
       // );
 
+      Flyy.getShareData(
+        (referralDetails) => {
+          console.log("Referral link " + referralDetails.referral_link);
+          console.log("Referral message " + referralDetails.referral_message);
+          console.log("Share message " + referralDetails.share_message);
+        });
+
+      Flyy.getReferralCount(
+      (referralCount) => {
+        console.log("Referral Count: " + referralCount);
+      });
+
       //open offers screen
       Flyy.openOffersScreen();
-      Flyy.verifyReferralCode("sdfh123",
-        (isValid, referralCode) => {
-          console.log(isValid, referralCode);
-        });
+      // Flyy.verifyReferralCode("sdfh123",
+      //   (isValid, referralCode) => {
+      //     console.log(isValid, referralCode);
+      //   });
       // Flyy.openOffersScreenWithSegment("");
 
       //open rewards screen

@@ -7,12 +7,9 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import theflyy.com.flyy.Flyy
-import theflyy.com.flyy.helpers.FlyyNotificationHandler
-import theflyy.com.flyy.helpers.FlyyReferrerDataListener
-import theflyy.com.flyy.helpers.FlyyVerifyReferralCode
-import theflyy.com.flyy.helpers.OnFlyyTaskComplete
+import theflyy.com.flyy.helpers.*
+import theflyy.com.flyy.model.FlyyReferralDetails
 import java.util.*
-import org.xml.sax.Parser as Parser1
 
 
 class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
@@ -222,9 +219,55 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
 
   @ReactMethod
   fun verifyReferralCode(referralCode: String?, successCallBack: Callback) {
-    Flyy.verifyReferralCode(context, referralCode, FlyyVerifyReferralCode {
-      isValid, referralCode ->
-        successCallBack.invoke(isValid, referralCode)
+    Flyy.verifyReferralCode(context, referralCode, FlyyVerifyReferralCode { isValid, referralCode ->
+      successCallBack.invoke(isValid, referralCode)
+    })
+  }
+
+  @ReactMethod
+  fun getShareData(successCallBack: Callback) {
+    Flyy.getShareData(context, object : FlyyReferralDataFetchedListener {
+      override fun onReferralDetailsFetched(referralDetails: FlyyReferralDetails) {
+        val resultData: WritableMap = WritableNativeMap()
+        resultData.putString("referral_link", referralDetails.referralLink)
+        resultData.putString("referral_message", referralDetails.referralMessage)
+        resultData.putString("share_message", referralDetails.shareMessage)
+        successCallBack.invoke(resultData)
+      }
+
+      override fun onFailure(failureMessage: String) {
+        successCallBack.invoke(failureMessage)
+      }
+    })
+  }
+
+  @ReactMethod
+  fun getShareData(offerId: Int, successCallBack: Callback) {
+    Flyy.getShareData(context, offerId, object : FlyyReferralDataFetchedListener {
+      override fun onReferralDetailsFetched(referralDetails: FlyyReferralDetails) {
+        val resultData: WritableMap = WritableNativeMap()
+        resultData.putString("referral_link", referralDetails.referralLink)
+        resultData.putString("referral_message", referralDetails.referralMessage)
+        resultData.putString("share_message", referralDetails.shareMessage)
+        successCallBack.invoke(resultData)
+      }
+
+      override fun onFailure(failureMessage: String) {
+        successCallBack.invoke(failureMessage)
+      }
+    })
+  }
+
+  @ReactMethod
+  fun getReferralCount(successCallBack: Callback) {
+    Flyy.getReferralCount(context, object : FlyyReferralCountFetchedListener {
+      override fun onReferralCountFetched(referralsCount: Int) {
+        successCallBack.invoke(referralsCount)
+      }
+
+      override fun onFailure(failureMessage: String) {
+        successCallBack.invoke(failureMessage)
+      }
     })
   }
 
@@ -232,21 +275,19 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   fun handleNotification(remoteMessageString: String?) {
     val jsonObj = JSONObject(remoteMessageString)
     val remoteMessageData = jsonObj.toMap()
-    FlyyNotificationHandler.handleFlutterAndReactNativeNotification(context, remoteMessageData as MutableMap<String, String>?, null, null)
+    FlyyNotificationHandler.handleCrossPlatformNotification(context, remoteMessageData as MutableMap<String, String>?, null, null)
 
   }
 
   fun JSONObject.toMap(): Map<String, *> = keys().asSequence().associateWith {
-    when (val value = this[it])
-    {
-      is JSONArray ->
-      {
+    when (val value = this[it]) {
+      is JSONArray -> {
         val map = (0 until value.length()).associate { Pair(it.toString(), value[it]) }
         JSONObject(map).toMap().values.toList()
       }
       is JSONObject -> value.toMap()
       JSONObject.NULL -> null
-      else            -> value
+      else -> value
     }
   }
 
