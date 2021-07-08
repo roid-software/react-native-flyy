@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.reactnativeflyy">
 
-  <application>
+  <application
+    android:allowBackup="false">
+
     <activity
       android:name=".FlyyRouteActivity"
       android:screenOrientation="portrait" />

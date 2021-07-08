@@ -257,16 +257,67 @@ RCT_EXPORT_METHOD(verifyReferralCode: (NSString *)referralCode :(RCTResponseSend
 //get share data
 RCT_EXPORT_METHOD(getShareData: (RCTResponseSenderBlock)callback)
 {
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    
+    [flyyInstance getShareDataOnComplete: ^(BOOL success, NSArray<NSString *> *referralDetails) {
+        if (success) {
+            NSDictionary* jsonObject = @{ @"success": @true,
+                                          @"referral_link": referralDetails[0],
+                                          @"referral_message": referralDetails[1],
+                                          @"share_message": referralDetails[2]
+            };
+            callback(@[jsonObject]);
+        } else {
+            NSDictionary* jsonObject = @{ @"success": @false,
+                                          @"referral_link": referralDetails[0],
+                                          @"referral_message": referralDetails[1],
+                                          @"share_message": referralDetails[2]
+            };
+            callback(@[jsonObject]);
+        }
+        
+        
+    }];
 }
 
 //get share data with offer id
-RCT_EXPORT_METHOD(getShareData: (int)offerId :(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(getShareDataWithOfferId: (int)offerId :(RCTResponseSenderBlock)callback)
 {
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    
+    [flyyInstance getShareDataWithOfferId:offerId onComplete:^(BOOL success, NSArray<NSString *> *referralDetails) {
+        if (success) {
+            NSDictionary* jsonObject = @{ @"success": @true,
+                                          @"referral_link": referralDetails[0],
+                                          @"referral_message": referralDetails[1],
+                                          @"share_message": referralDetails[2]
+            };
+            callback(@[jsonObject]);
+        } else {
+            NSDictionary* jsonObject = @{ @"success": @false,
+                                          @"referral_link": referralDetails[0],
+                                          @"referral_message": referralDetails[1],
+                                          @"share_message": referralDetails[2]
+            };
+            callback(@[jsonObject]);
+        }
+        
+        
+    }];
 }
 
 //get referral count
 RCT_EXPORT_METHOD(getReferralCount:(RCTResponseSenderBlock)callback)
 {
+    //Instance of flyy class
+    Flyy *flyyInstance = [[Flyy alloc] init];
+    
+    [flyyInstance getReferralCountOnComplete:^(BOOL success, NSInteger referralCount) {
+        callback(@[@(referralCount)]);
+    }];
+    
 }
 
 //open offers screen

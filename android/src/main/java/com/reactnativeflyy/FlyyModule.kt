@@ -242,7 +242,7 @@ class FlyyModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaMo
   }
 
   @ReactMethod
-  fun getShareData(offerId: Int, successCallBack: Callback) {
+  fun getShareDataWithOfferId(offerId: Int, successCallBack: Callback) {
     Flyy.getShareData(context, offerId, object : FlyyReferralDataFetchedListener {
       override fun onReferralDetailsFetched(referralDetails: FlyyReferralDetails) {
         val resultData: WritableMap = WritableNativeMap()

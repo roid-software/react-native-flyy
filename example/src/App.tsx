@@ -8,26 +8,26 @@ import firebase from '@react-native-firebase/app';
 
 export default class App extends React.Component {
 
-  requestUserPermission = async () => {
-    /**
-     * On iOS, messaging permission must be requested by
-     * the current application before messages can be
-     * received or sent
-     */
-    const authStatus = await messaging().requestPermission();
-    console.log('Authorization status(authStatus):', authStatus);
-    return (
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL
-    );
-  };
+  // requestUserPermission = async () => {
+  //   /**
+  //    * On iOS, messaging permission must be requested by
+  //    * the current application before messages can be
+  //    * received or sent
+  //    */
+  //   const authStatus = await messaging().requestPermission();
+  //   console.log('Authorization status(authStatus):', authStatus);
+  //   return (
+  //     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+  //     authStatus === messaging.AuthorizationStatus.PROVISIONAL
+  //   );
+  // };
 
   componentDidMount() {
-    const firebaseConfig = {
-      apiKey: 'AIzaSyCFOazKEPQ7hGGahThUGvgh0T5hvyItCV8'
-    };
+    // const firebaseConfig = {
+      // apiKey: 'AIzaSyCFOazKEPQ7hGGahThUGvgh0T5hvyItCV8'
+    // };
 
-    firebase.initializeApp(firebaseConfig);
+    // firebase.initializeApp(firebaseConfig);
     Flyy.setPackageName("com.example.reactnativeflyy");
     //initalize flyy sdk
     // Flyy.initSDK("90219bb234f10fbff1b0", Flyy.PRODUCTION);
@@ -41,87 +41,87 @@ export default class App extends React.Component {
     //   console.log(`Callback value referralData ${referralData}`);
     // });
 
-    if (this.requestUserPermission()) {
-      /**
-       * Returns an FCM token for this device
-       */
-      messaging()
-        .getToken()
-        .then((fcmToken) => {
-          console.log('FCM Token -> ', fcmToken);
-        });
-    } else console.log('Not Authorization status:', authStatus);
+    // if (this.requestUserPermission()) {
+    //   /**
+    //    * Returns an FCM token for this device
+    //    */
+    //   messaging()
+    //     .getToken()
+    //     .then((fcmToken) => {
+    //       console.log('FCM Token -> ', fcmToken);
+    //     });
+    // } else console.log('Not Authorization status:', authStatus);
 
-    messaging().onMessage(async remoteMessage => {
-      console.log(remoteMessage.data.notification_source);
-      if(remoteMessage.data.notification_source === "flyy_sdk") {
-        Flyy.handleNotification(JSON.stringify(remoteMessage.data));
-      }
+    // messaging().onMessage(async remoteMessage => {
+    //   console.log(remoteMessage.data.notification_source);
+    //   if(remoteMessage.data.notification_source === "flyy_sdk") {
+    //     Flyy.handleNotification(JSON.stringify(remoteMessage.data));
+    //   }
       
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage.data));
-    });
+    //   Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage.data));
+    // });
 
-    /**
-     * When a notification from FCM has triggered the application
-     * to open from a quit state, this method will return a
-     * `RemoteMessage` containing the notification data, or
-     * `null` if the app was opened via another method.
-     */
-    messaging()
-      .getInitialNotification()
-      .then(async (remoteMessage) => {
-        if (remoteMessage) {
-          console.log(
-            'getInitialNotification:' +
-              'Notification caused app to open from quit state',
-          );
-          console.log(remoteMessage);
-          Alert.alert
-          (
-            'getInitialNotification: Notification caused app to' +
-            ' open from quit state',
-          );
-        }
-      });
+    // /**
+    //  * When a notification from FCM has triggered the application
+    //  * to open from a quit state, this method will return a
+    //  * `RemoteMessage` containing the notification data, or
+    //  * `null` if the app was opened via another method.
+    //  */
+    // messaging()
+    //   .getInitialNotification()
+    //   .then(async (remoteMessage) => {
+    //     if (remoteMessage) {
+    //       console.log(
+    //         'getInitialNotification:' +
+    //           'Notification caused app to open from quit state',
+    //       );
+    //       console.log(remoteMessage);
+    //       Alert.alert
+    //       (
+    //         'getInitialNotification: Notification caused app to' +
+    //         ' open from quit state',
+    //       );
+    //     }
+    //   });
 
-    /**
-     * When the user presses a notification displayed via FCM,
-     * this listener will be called if the app has opened from
-     * a background state. See `getInitialNotification` to see
-     * how to watch for when a notification opens the app from
-     * a quit state.
-     */
-    messaging().onNotificationOpenedApp(async (remoteMessage) => {
-      if (remoteMessage) {
-        console.log(
-          'onNotificationOpenedApp: ' +
-            'Notification caused app to open from background state',
-        );
-        console.log(remoteMessage);
-        Alert.alert(
-          'onNotificationOpenedApp: Notification caused app to' +
-          ' open from background state',
-        );
-      }
-    });
+    // /**
+    //  * When the user presses a notification displayed via FCM,
+    //  * this listener will be called if the app has opened from
+    //  * a background state. See `getInitialNotification` to see
+    //  * how to watch for when a notification opens the app from
+    //  * a quit state.
+    //  */
+    // messaging().onNotificationOpenedApp(async (remoteMessage) => {
+    //   if (remoteMessage) {
+    //     console.log(
+    //       'onNotificationOpenedApp: ' +
+    //         'Notification caused app to open from background state',
+    //     );
+    //     console.log(remoteMessage);
+    //     Alert.alert(
+    //       'onNotificationOpenedApp: Notification caused app to' +
+    //       ' open from background state',
+    //     );
+    //   }
+    // });
 
-    /**
-     * Set a message handler function which is called when
-     * the app is in the background or terminated. In Android,
-     * a headless task is created, allowing you to access the
-     * React Native environment to perform tasks such as updating
-     * local storage, or sending a network request.
-     */
-    messaging().setBackgroundMessageHandler(
-      async (remoteMessage) => {
-        if(remoteMessage.data.notification_source === "flyy_sdk") {
-          Flyy.handleNotification(JSON.stringify(remoteMessage.data));
-        }
-        // console.log(
-        //   'Message handled in the background!',
-        //   remoteMessage.data
-        // );
-    });
+    // /**
+    //  * Set a message handler function which is called when
+    //  * the app is in the background or terminated. In Android,
+    //  * a headless task is created, allowing you to access the
+    //  * React Native environment to perform tasks such as updating
+    //  * local storage, or sending a network request.
+    //  */
+    // messaging().setBackgroundMessageHandler(
+    //   async (remoteMessage) => {
+    //     if(remoteMessage.data.notification_source === "flyy_sdk") {
+    //       Flyy.handleNotification(JSON.stringify(remoteMessage.data));
+    //     }
+    //     // console.log(
+    //     //   'Message handled in the background!',
+    //     //   remoteMessage.data
+    //     // );
+    // });
   }
 
   render() {
